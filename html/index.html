@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+</head>
+<body>
+
+</body>
+<script src="scripts/NoSleep.js"></script>
+<script src="scripts/socket.io.js"></script>
+<script>
+    document.body.style.backgroundColor = "black";
+
+    var noSleep = new NoSleep();
+
+    function enableNoSleep() {
+        noSleep.enable();
+        document.removeEventListener('click', enableNoSleep, false);
+
+        console.log('Enabled no sleep mode');
+
+        var socket = io();
+        socket.on('change', (config) => {
+            document.body.style.backgroundColor = config.color;
+        });
+    }
+
+    document.addEventListener('click', enableNoSleep, false);
+
+</script>
+</html>
